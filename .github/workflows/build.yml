@@ -13,8 +13,9 @@ jobs:
           docker run --rm -v ${{ github.workspace }}:/code -w /code \
             --ulimit nofile=1000000:1000000 \
             --security-opt seccomp=unconfined \
+            --entrypoint cargo \
             solanalabs/solana:v1.10.25 \
-            cargo build-bpf
+            build-bpf
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

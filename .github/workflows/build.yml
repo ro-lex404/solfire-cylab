@@ -23,10 +23,11 @@ jobs:
               apt-get update -o Acquire::Check-Valid-Until=false &&
               apt-get install -y curl build-essential &&
               
-              curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &&
+              # THE CRITICAL FIX: Force Rust to install version 1.75.0
+              curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.75.0 &&
               source \$HOME/.cargo/env &&
               
-              # Delete the modern lock file so the old compiler can generate its own
+              # Delete any existing lock files just to be safe
               rm -f Cargo.lock &&
               
               /usr/bin/cargo-build-bpf

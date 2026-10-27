@@ -1,0 +1,20 @@
+name: build-solana
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Install Solana
+        run: |
+          sh -c "$(curl -sSfL https://release.solana.com/v1.14.27/install)"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
+      - name: Build
+        run: cargo build-sbf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: solve-so
+          path: target/deploy/solve.so

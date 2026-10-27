@@ -13,9 +13,9 @@ jobs:
           docker run --rm -v ${{ github.workspace }}:/code -w /code \
             --ulimit nofile=1000000:1000000 \
             --security-opt seccomp=unconfined \
-            --entrypoint cargo \
+            --entrypoint /bin/bash \
             solanalabs/solana:v1.10.25 \
-            build-bpf
+            -c "export PATH=/root/.cargo/bin:/root/.local/share/solana/install/active_release/bin:\$PATH && cargo build-bpf"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

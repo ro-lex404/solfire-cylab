@@ -28,9 +28,10 @@ jobs:
               
               rm -f Cargo.lock &&
               
-              # Pin the problematic dependencies to older, compatible versions
+              # Pin all the problematic dependencies to older, compatible versions
               cargo update -p blake3 --precise 1.8.0 &&
               cargo update -p zeroize_derive --precise 1.4.2 &&
+              cargo update -p toml_parser --precise 1.0.10 &&
               
               /usr/bin/cargo-build-bpf
             "

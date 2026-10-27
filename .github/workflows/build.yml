@@ -1,4 +1,4 @@
-name: build-solana
+name: build-solana-docker
 on: [push, workflow_dispatch]
 
 jobs:
@@ -8,25 +8,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-
-      # 1. Install Solana CLI manually using the official script
-      - name: Install Solana CLI (v1.10.25)
+      - name: Build inside Solana v1.10.25 Docker
         run: |
-          sh -c "$(curl -sSfL https://release.solana.com/v1.10.25/install)"
-          echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
-
-      # 2. Install cargo-build-sbf explicitly (it is not bundled with the CLI)
-      - name: Install cargo-build-sbf
-        run: cargo install cargo-build-sbf --force --locked
-
-      # 3. Build using the compatibility flag
-      - name: Build Solana Program (SBF with tools v1.41)
-        run: cargo build-sbf --tools-version v1.41
+          docker run --rm -v ${{ github.workspace }}:/code -w /code \
+            solanalabs/solana:v1.10.25 \
+            cargo build-bpf
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

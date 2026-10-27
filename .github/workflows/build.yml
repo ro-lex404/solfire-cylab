@@ -39,6 +39,11 @@ jobs:
               cargo update -p semver --precise 1.0.14 &&
               cargo update -p serde --precise 1.0.145 &&
               cargo update -p serde_derive --precise 1.0.145 &&
+              cargo update -p serde_bytes --precise 0.11.9 &&
+              cargo update -p serde_json --precise 1.0.89 &&
+              cargo update -p thiserror --precise 1.0.34 &&
+              cargo update -p bincode --precise 1.3.3 &&
+              cargo update -p libc --precise 0.2.148 &&
               /usr/bin/cargo-build-bpf
             "
 

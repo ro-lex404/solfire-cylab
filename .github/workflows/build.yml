@@ -28,8 +28,9 @@ jobs:
               
               rm -f Cargo.lock &&
               
-              # Pin blake3 to 1.3.3 so the ancient BPF compiler can actually resolve it
+              # Pin all problematic dependencies to versions the old BPF toolchain can see
               cargo update -p blake3 --precise 1.3.3 &&
+              cargo update -p js-sys --precise 0.3.77 &&
               
               /usr/bin/cargo-build-bpf
             "

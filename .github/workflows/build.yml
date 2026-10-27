@@ -27,8 +27,10 @@ jobs:
               source \$HOME/.cargo/env &&
               
               rm -f Cargo.lock &&
-              # Only downgrade blake3, which automatically fixes the block-buffer issue
+              
+              # Pin the problematic dependencies to older, compatible versions
               cargo update -p blake3 --precise 1.8.0 &&
+              cargo update -p zeroize_derive --precise 1.4.2 &&
               
               /usr/bin/cargo-build-bpf
             "

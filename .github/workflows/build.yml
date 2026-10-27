@@ -22,7 +22,7 @@ jobs:
             --security-opt seccomp=unconfined \
             --entrypoint /bin/bash \
             solanalabs/solana:v1.10.25 \
-            -c "/root/.local/share/solana/install/active_release/bin/cargo-build-bpf"
+            -c "/usr/bin/cargo-build-bpf"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

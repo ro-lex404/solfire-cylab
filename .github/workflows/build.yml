@@ -28,9 +28,11 @@ jobs:
               
               rm -f Cargo.lock &&
               
-              # Pin all problematic dependencies to versions the old BPF toolchain can see
+              # Pin all problematic dependencies and align the wasm-bindgen ecosystem
               cargo update -p blake3 --precise 1.3.3 &&
-              cargo update -p js-sys --precise 0.3.77 &&
+              cargo update -p js-sys --precise 0.3.72 &&
+              cargo update -p web-sys --precise 0.3.72 &&
+              cargo update -p wasm-bindgen --precise 0.2.95 &&
               
               /usr/bin/cargo-build-bpf
             "

@@ -8,6 +8,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Locate cargo inside Docker
+        run: |
+          docker run --rm \
+            --entrypoint /bin/bash \
+            solanalabs/solana:v1.10.25 \
+            -c "find / -name 'cargo*' -type f 2>/dev/null"
+
       - name: Build inside Solana v1.10.25 Docker
         run: |
           docker run --rm -v ${{ github.workspace }}:/code -w /code \

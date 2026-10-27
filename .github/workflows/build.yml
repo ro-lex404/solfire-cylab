@@ -8,12 +8,17 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          override: true
+
       - name: Install Solana
         run: |
           sh -c "$(curl -sSfL https://release.solana.com/v1.14.27/install)"
-          echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
+          # Use the absolute path for GitHub Actions runners
+          echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
+
       - name: Build
         run: cargo build-sbf
+
       - uses: actions/upload-artifact@v4
         with:
           name: solve-so

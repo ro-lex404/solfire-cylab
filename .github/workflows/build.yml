@@ -5,34 +5,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # 1. Set up Rust (required by Solana CLI)
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
 
-      # 2. Install Solana CLI (using absolute path for GitHub Actions)
-      - name: Install Solana
-        run: 
-          cargo install cargo-build-sbf --force --locked
-          sh -c "$(curl -sSfL https://release.solana.com/v1.14.27/install)"
-          echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
+      - name: Setup Solana CLI
+        uses: solana-fm/setup-solana@v1
+        with:
+          solana-version: 1.14.27
+          cache: true
 
-      # 3. Verify the installation actually worked
-      - name: Verify Solana Installation
-        run: |
-          which cargo-build-sbf || echo "cargo-build-sbf NOT FOUND"
-          cargo-build-sbf --version || echo "version check failed"
-
-      # 4. Build your program
-      - name: Build
+      - name: Build Solana Program
         run: cargo build-sbf
 
-      # 5. Upload the artifact
-      - uses: actions/upload-artifact@v4
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: solve-so
           path: target/deploy/solve.so

@@ -34,7 +34,7 @@ jobs:
               cargo update -p js-sys --precise 0.3.72 &&
               cargo update -p wasm-bindgen --precise 0.2.95 &&
               cargo update -p log --precise 0.4.17 &&
-              
+              cargo update -p num-traits --precise 0.2.15 &&
               /usr/bin/cargo-build-bpf
             "
 

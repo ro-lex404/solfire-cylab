@@ -16,8 +16,16 @@ jobs:
             --entrypoint /bin/bash \
             solanalabs/solana:v1.10.25 \
             -c "
-              sed -i 's|deb.debian.org|snapshot.debian.org|g' /etc/apt/sources.list &&
-              sed -i 's|security.debian.org|snapshot.debian.org|g' /etc/apt/sources.list &&
+              # 方案 A: 使用 snapshot.debian.org 并指定时间戳
+              echo 'deb http://snapshot.debian.org/archive/debian/20230929T060000Z/ bullseye main' > /etc/apt/sources.list &&
+              echo 'deb http://snapshot.debian.org/archive/debian-security/20230929T060000Z/ bullseye-security main' >> /etc/apt/sources.list &&
+              echo 'deb http://snapshot.debian.org/archive/debian/20230929T060000Z/ bullseye-updates main' >> /etc/apt/sources.list &&
+              
+              # 方案 B: 如果方案 A 仍然失败，注释掉上面三行，取消下面三行的注释
+              # echo 'deb http://archive.debian.org/debian/ bullseye main' > /etc/apt/sources.list &&
+              # echo 'deb http://archive.debian.org/debian-security/ bullseye-security main' >> /etc/apt/sources.list &&
+              # echo 'deb http://archive.debian.org/debian/ bullseye-updates main' >> /etc/apt/sources.list &&
+              
               apt-get update -o Acquire::Check-Valid-Until=false &&
               apt-get install -y curl build-essential &&
               curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &&

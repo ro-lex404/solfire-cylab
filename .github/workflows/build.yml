@@ -36,6 +36,7 @@ jobs:
               cargo update -p log --precise 0.4.17 &&
               cargo update -p num-traits --precise 0.2.15 &&
               cargo update -p cc --precise 1.0.79 &&
+              cargo update -p semver --precise 1.0.14 &&
               /usr/bin/cargo-build-bpf
             "
 

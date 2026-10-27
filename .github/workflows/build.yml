@@ -16,9 +16,7 @@ jobs:
 
       # 2. Install Solana CLI (using absolute path for GitHub Actions)
       - name: Install Solana
-        run: |
-          sh -c "$(curl -sSfL https://release.solana.com/v1.14.27/install)"
-          echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
+        run: cargo install cargo-build-sbf --force --locked
 
       # 3. Verify the installation actually worked
       - name: Verify Solana Installation

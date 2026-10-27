@@ -16,7 +16,10 @@ jobs:
             --entrypoint /bin/bash \
             solanalabs/solana:v1.10.25 \
             -c "
-              apt-get update && apt-get install -y curl build-essential &&
+              sed -i 's|deb.debian.org|snapshot.debian.org|g' /etc/apt/sources.list &&
+              sed -i 's|security.debian.org|snapshot.debian.org|g' /etc/apt/sources.list &&
+              apt-get update -o Acquire::Check-Valid-Until=false &&
+              apt-get install -y curl build-essential &&
               curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y &&
               source \$HOME/.cargo/env &&
               /usr/bin/cargo-build-bpf

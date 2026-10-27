@@ -13,6 +13,9 @@ jobs:
         with:
           toolchain: stable
           override: true
+          
+      - name: Install Cargo Build SBF
+        run: cargo install cargo-build-sbf
 
       - name: Install Solana CLI (v1.10.25)
         run: |

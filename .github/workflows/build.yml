@@ -13,17 +13,16 @@ jobs:
         with:
           toolchain: stable
           override: true
-          
-      - name: Install Cargo Build SBF
-        run: cargo install cargo-build-sbf
 
+      # REMOVED: cargo install cargo-build-sbf (this was installing incompatible tools)
+      
       - name: Install Solana CLI (v1.10.25)
         run: |
           sh -c "$(curl -sSfL https://release.solana.com/v1.10.25/install)"
           echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
 
-      - name: Build Solana Program (SBF)
-        run: cargo build-sbf
+      - name: Build Solana Program (SBF with tools v1.41)
+        run: cargo build-sbf --tools-version v1.41
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

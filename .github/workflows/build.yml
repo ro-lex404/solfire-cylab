@@ -23,16 +23,13 @@ jobs:
               apt-get update -o Acquire::Check-Valid-Until=false &&
               apt-get install -y curl build-essential &&
               
-              # Install Rust 1.75.0 (generates lockfile v3)
               curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain 1.75.0 &&
               source \$HOME/.cargo/env &&
               
-              # Delete old lockfile and pin the problematic crates to pre-edition2024 versions
               rm -f Cargo.lock &&
+              # Only downgrade blake3, which automatically fixes the block-buffer issue
               cargo update -p blake3 --precise 1.8.0 &&
-              cargo update -p block-buffer --precise 0.10.4 &&
               
-              # Now run the BPF build
               /usr/bin/cargo-build-bpf
             "
 

@@ -14,13 +14,18 @@ jobs:
           toolchain: stable
           override: true
 
-      # Use a dedicated action to install Solana CLI and cargo-build-sbf
-      - name: Setup Solana CLI
-        uses: metaDAOproject/setup-solana@v1.2
-        with:
-          solana-cli-version: 1.10.25
+      # 1. Install Solana CLI manually using the official script
+      - name: Install Solana CLI (v1.10.25)
+        run: |
+          sh -c "$(curl -sSfL https://release.solana.com/v1.10.25/install)"
+          echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
 
-      - name: Build Solana Program
+      # 2. Install cargo-build-sbf explicitly (it is not bundled with the CLI)
+      - name: Install cargo-build-sbf
+        run: cargo install cargo-build-sbf --force --locked
+
+      # 3. Build using the compatibility flag
+      - name: Build Solana Program (SBF with tools v1.41)
         run: cargo build-sbf --tools-version v1.41
 
       - name: Upload Artifact

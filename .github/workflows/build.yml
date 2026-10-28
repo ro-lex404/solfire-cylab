@@ -28,7 +28,6 @@ jobs:
               
               rm -f Cargo.lock &&
               
-              # Pin all problematic dependencies
               cargo update -p blake3 --precise 1.3.3 &&
               cargo update -p web-sys --precise 0.3.72 &&
               cargo update -p js-sys --precise 0.3.72 &&
@@ -37,11 +36,11 @@ jobs:
               cargo update -p num-traits --precise 0.2.15 &&
               cargo update -p cc --precise 1.0.79 &&
               cargo update -p semver --precise 1.0.14 &&
-              
-              # DO SERDE_BYTES FIRST, THEN SERDE
               cargo update -p serde_bytes --precise 0.11.9 &&
               cargo update -p serde --precise 1.0.145 &&
               cargo update -p serde_derive --precise 1.0.145 &&
+              cargo update -p once_cell --precise 1.15.0 &&
+              cargo update -p libc --precise 0.2.148 &&
               /usr/bin/cargo-build-bpf
             "
 

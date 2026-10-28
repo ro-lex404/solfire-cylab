@@ -18,9 +18,9 @@ pub fn process_instruction(
     let accounts_iter = &mut accounts.iter();
     let clock_info = next_account_info(accounts_iter)?;
     let system_info = next_account_info(accounts_iter)?;
-    let ledger_info = next_account_info(accounts_iter)?;
-    let vault_info = next_account_info(accounts_iter)?;
-    let user_info = next_account_info(accounts_iter)?;
+    let ledger_info = next_account_info(accounts_iter)?; // 2
+    let user_info = next_account_info(accounts_iter)?;   // 3  (swapped)
+    let vault_info = next_account_info(accounts_iter)?;  // 4  (swapped)
     let solfire_info = next_account_info(accounts_iter)?;
 
     let ledger_nonce = instruction_data[0];

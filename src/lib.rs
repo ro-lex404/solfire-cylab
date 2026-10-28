@@ -30,8 +30,8 @@ pub fn process_instruction(
     let create_ix = system_instruction::create_account(
         user_info.key,
         ledger_info.key,
-        0, // lamports
-        0, // space
+        0,           // lamports
+        0x2800,      // space: 10240 bytes (0x2800)
         solfire_info.key,
     );
     

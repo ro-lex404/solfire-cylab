@@ -81,6 +81,7 @@ pub fn process_instruction(
             ledger_info.clone(),
             user_info.clone(),
             vault_info.clone(),
+            solfire_info.clone(),
         ],
     )?;
 

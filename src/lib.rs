@@ -42,8 +42,6 @@ pub fn process_instruction(
         &[
             user_info.clone(),
             ledger_info.clone(),
-            system_info.clone(),
-            solfire_info.clone(),
         ],
         &[ledger_seeds],
     )?;
@@ -81,7 +79,6 @@ pub fn process_instruction(
             ledger_info.clone(),
             user_info.clone(),
             vault_info.clone(),
-            solfire_info.clone(),
         ],
     )?;
 

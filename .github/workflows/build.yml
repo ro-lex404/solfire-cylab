@@ -29,7 +29,7 @@ jobs:
               source \$HOME/.cargo/env &&
               
               # Build using the exact lockfile we generated locally
-              /usr/bin/cargo-build-bpf --locked
+              /usr/bin/cargo-build-bpf -- --locked
             "
 
       - name: Upload Artifact
